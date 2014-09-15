@@ -59,9 +59,11 @@ public class HomeActivity extends Activity {
                         JSONObject photo = data.getJSONObject(i);
                         InstagramPhoto instagramPhoto = new InstagramPhoto();
                         instagramPhoto.setUsername(photo.getJSONObject("user").getString("username"));
-                        if(photo.getJSONObject("caption") != null) {
+                        if(photo.getJSONObject("caption") != JSONObject.NULL) {
                             instagramPhoto.setCaption(photo.getJSONObject("caption").getString("text"));
                         }
+                        instagramPhoto.setSubmittedTime(photo.getString("created_time"));
+                        instagramPhoto.setProfilePicURL(photo.getJSONObject("user").getString("profile_picture"));
                         instagramPhoto.setLikes(photo.getJSONObject("likes").getInt("count"));
                         instagramPhoto.setImageURL(photo.getJSONObject("images").
                                 getJSONObject("standard_resolution").getString("url"));
@@ -71,7 +73,7 @@ public class HomeActivity extends Activity {
 //                Log.i(TAG, response.toString());
                     }
                 }catch (JSONException ex){
-
+                    ex.printStackTrace();
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -97,7 +99,8 @@ public class HomeActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.refresh) {
+            fetchPopularPhotos();
             return true;
         }
         return super.onOptionsItemSelected(item);

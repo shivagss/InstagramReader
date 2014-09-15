@@ -9,6 +9,24 @@ public class InstagramPhoto {
     String imageURL;
     int imageHeight;
     int likes;
+    String profilePicURL;
+    String submittedTime;
+
+    public String getProfilePicURL() {
+        return profilePicURL;
+    }
+
+    public void setProfilePicURL(String profilePicURL) {
+        this.profilePicURL = profilePicURL;
+    }
+
+    public String getSubmittedTime() {
+        return submittedTime;
+    }
+
+    public void setSubmittedTime(String submittedTime) {
+        this.submittedTime = submittedTime;
+    }
 
     @Override
     public String toString() {
