@@ -1,16 +1,21 @@
 InstaPop
 ========
 
-Browse through the most popular Instagram photos
+An Android application to browse through the most popular Instagram photos
 
-####Total time spent: 6 Hours
+####Total time spent: 8 Hours
 
-####Notable implementation details:
-  * Used Instagram API to get current popular photos.
-  * Display Standard resolution photo, with caption, likes, username and photo upload time.
-  * Added refresh button in action bar to reload the latest popular photos.
-  * Custom ListView adapter with holder pattern.
-  * Libraries used: android-async-http-1.4.5 and picasso-2.3.4
+####User Stories:
+
+  * [x] User can scroll through current popular photos from Instagram
+  * [x] For each photo displayed, user can see the following details:
+    * Graphic, Caption, Username
+    * display like count, user profile image and creation date
+  * [x] Add pull-to-refresh for popular stream with SwipeRefreshLayout
+  * [x] Show latest 2 comments for each photo
+  * [x] Update the image to be displayed with the same proportions as on Instagram
+  
+Libraries used: android-async-http-1.4.5, picasso-2.3.4 and android-support-v4.
 
 ####Demo:
 ![Video Walkthrough](demo.gif)

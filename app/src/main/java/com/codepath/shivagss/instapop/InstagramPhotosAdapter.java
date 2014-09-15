@@ -30,6 +30,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         ImageView image;
         TextView caption;
         TextView likes;
+        TextView comments;
+        TextView commentsLabel;
     }
 
     public InstagramPhotosAdapter(Context context, List<InstagramPhoto> objects) {
@@ -53,6 +55,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             holder.username = (TextView) convertView.findViewById(R.id.username);
             holder.submittedTime = (TextView) convertView.findViewById(R.id.submittedTime);
             holder.likes = (TextView) convertView.findViewById(R.id.likes);
+            holder.comments = (TextView) convertView.findViewById(R.id.comments);
+            holder.commentsLabel = (TextView) convertView.findViewById(R.id.commentsLabel);
             convertView.setTag(holder);
         }
 
@@ -68,10 +72,22 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
         holder.submittedTime.setText(diffInHour+"h");
         holder.profilePic.setImageResource(0);
-        Picasso.with(getContext()).load(photo.getProfilePicURL()).into(holder.profilePic);
+        Picasso.with(getContext()).load(photo.getProfilePicURL()).
+                placeholder(R.drawable.ic_launcher).into(holder.profilePic);
 
         holder.likes.setText(getContext().getString(R.string.likes, photo.likes));
         holder.caption.setText(Html.fromHtml("<b>"+photo.username+"</b>" + " " +photo.caption));
+
+        holder.commentsLabel.setText(getContext().getResources().
+                getQuantityString(R.plurals.commentsLabel, photo.commentsCount, photo.commentsCount));
+
+        StringBuilder comments = new StringBuilder();
+        for(String comment:photo.getComments()){
+            comments.append(comment);
+            comments.append("<br>");
+        }
+        holder.comments.setText(Html.fromHtml(comments.toString()));
+
         holder.image.setImageResource(0);
         Picasso.with(getContext()).load(photo.getImageURL()).into(holder.image);
 

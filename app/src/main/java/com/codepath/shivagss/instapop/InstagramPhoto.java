@@ -1,5 +1,7 @@
 package com.codepath.shivagss.instapop;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sandeep on 9/14/2014.
  */
@@ -11,6 +13,24 @@ public class InstagramPhoto {
     int likes;
     String profilePicURL;
     String submittedTime;
+    int commentsCount;
+    ArrayList<String> comments = new ArrayList<String>();
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
 
     public String getProfilePicURL() {
         return profilePicURL;

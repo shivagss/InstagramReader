@@ -2,6 +2,8 @@ package com.codepath.shivagss.instapop;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +29,28 @@ public class HomeActivity extends Activity {
     InstagramPhotosAdapter mAdapter;
     private ListView mListView;
 
+    private SwipeRefreshLayout swipeContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         mAdapter = new InstagramPhotosAdapter(this, mList);
         mListView = (ListView) findViewById(R.id.listView);
@@ -59,8 +79,21 @@ public class HomeActivity extends Activity {
                         JSONObject photo = data.getJSONObject(i);
                         InstagramPhoto instagramPhoto = new InstagramPhoto();
                         instagramPhoto.setUsername(photo.getJSONObject("user").getString("username"));
-                        if(photo.getJSONObject("caption") != JSONObject.NULL) {
+                        if(!photo.isNull("caption")) {
                             instagramPhoto.setCaption(photo.getJSONObject("caption").getString("text"));
+                        }else{
+                            instagramPhoto.setCaption("");
+                        }
+                        if(!photo.isNull("comments")){
+                            int count = photo.getJSONObject("comments").getInt("count");
+                            instagramPhoto.setCommentsCount(count);
+                            if(count > 0){
+                                JSONArray comments = photo.getJSONObject("comments").getJSONArray("data");
+                                for(int j = comments.length() - 1 ; j >= comments.length() - 2 ; j--){
+                                    JSONObject comment = comments.getJSONObject(j);
+                                    instagramPhoto.getComments().add(("<b>"+comment.getJSONObject("from").getString("username") + "</b> "+comment.getString("text")));
+                                }
+                            }
                         }
                         instagramPhoto.setSubmittedTime(photo.getString("created_time"));
                         instagramPhoto.setProfilePicURL(photo.getJSONObject("user").getString("profile_picture"));
@@ -100,7 +133,9 @@ public class HomeActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.refresh) {
+            swipeContainer.setRefreshing(true);
             fetchPopularPhotos();
+            swipeContainer.setRefreshing(false);
             return true;
         }
         return super.onOptionsItemSelected(item);

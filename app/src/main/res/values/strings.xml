@@ -2,8 +2,13 @@
 <resources>
 
     <string name="app_name">InstaPop</string>
-    <string name="app_title">Popular Photos</string>
+    <string name="app_title">Popular Instagram Photos</string>
     <string name="action_refresh">Refresh</string>
     <string name="likes">%1$d likes</string>
+
+    <plurals name="commentsLabel">
+        <item quantity="one">all comments</item>
+        <item quantity="other">view all %d comments</item>
+    </plurals>
 
 </resources>

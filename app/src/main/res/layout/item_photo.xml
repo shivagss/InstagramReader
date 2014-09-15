@@ -11,6 +11,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:background="#88676767"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -18,7 +20,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_below="@+id/header"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher"/>
@@ -30,6 +32,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:text="username"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -38,11 +42,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:alpha="0.7"
             android:drawableLeft="@android:drawable/ic_menu_recent_history"
             android:drawablePadding="3dp"
             android:gravity="center_vertical"
             android:text="SubmittedTime"
-            android:alpha="0.6"
             android:textColor="@android:color/background_dark"
             android:textSize="10sp"/>
     </LinearLayout>
@@ -51,18 +55,20 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_margin="10dp"
+        android:layout_below="@id/header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher"/>
-
 
     <LinearLayout
         android:id="@+id/likesLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp">
 
         <ImageView
@@ -89,9 +95,31 @@
         android:id="@+id/caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/image"
         android:layout_below="@+id/likesLayout"
         android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:text="New Text"/>
+
+
+    <TextView
+        android:id="@+id/commentsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/caption"
+        android:layout_below="@+id/caption"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:ellipsize="end"
+        android:alpha="0.6"
+        android:text=""/>
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/caption"
+        android:layout_below="@+id/commentsLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:ellipsize="end"
         android:text="New Text"/>
 </RelativeLayout>
